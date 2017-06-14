@@ -1,0 +1,151 @@
+<style>
+  body{background-image: url(/app/views/Books.jpg); background-repeat: no-repeat; background-size: 2000px 800px; background-attachment: fixed;}
+</style>
+
+<h1 style="text-align: center;">
+	Library Application
+</h1>
+
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr class='danger'>
+			<td>Book Name</td>
+			<td>Author Name</td>
+			<td>ISBN Code</td>
+			<td># of Books</td>
+			<td>Publish Date</td>
+			<td>Book Category</td>
+			<td># Issued</td>
+			<td>Edit</td>
+			<td>Delete</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		<tr ng-repeat="book in books" class='info'>
+			<td><a ng-href="#/book/{{book._id}}">{{book.bookname}}</a></td>
+			<td>{{book.authName}}</td>
+			<td>{{book.isbnCode}}</td>
+			<td>{{book.amount}}</td>
+			<td>{{book.pubdate}}</td>
+			<td>{{book.category}}</td>
+			<td>{{book.numiss}}</td>
+			<td><button ng-click="searchBook(book._id);" data-toggle="modal" data-target="#bookEditModal" class="btn btn-info btn-sm">Edit</button></td>
+			<td><button ng-click="deleteBook(book._id);" class="btn btn-info btn-sm">Delete</button></td>
+		</tr>
+		<tr class="info">
+			<td colspan='9'><button type="button"  ng-click="searchBook(123456789012);"class="btn btn-info btn-lg col-md-offset-5" data-toggle="modal" data-target="#bookAddModal">Add Book</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- Add book Modal -->
+<div id="bookAddModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Book</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+		  <div class="form-group">
+		    <label for="txtBookName">Book Name</label>
+		    <input type="text" class="form-control" ng-model='book.bookname' id="txtBookName" placeholder="Enter Book Name">
+		  </div>
+		  <div class="form-group">
+		    <label for="txtAuthName">Author Name</label>
+		    <input type="name" class="form-control" id="txtAuthName" ng-model='book.authName' placeholder="Enter Author Name">
+		  </div>
+			<div class="form-group">
+				<label for="txtISBNCode">ISBN Code</label>
+				<input type="text" class="form-control" id="txtISBNCode" ng-model='book.isbnCode' placeholder="Enter ISBN Code(length of 13)" size="13" minlength="13">
+			</div>
+
+
+<!-- -->
+			<div class="form-group">
+		    <label for="txtAmount"># of Books</label>
+		    <input type="number" class="form-control" id="txtAmount" ng-model='book.amount' placeholder="Enter # of Books">
+		  </div>
+			<div class="form-group">
+				<label for="txtPubDate">Publish Date</label>
+				<input type="date" class="form-control" id="txtPubDate" ng-model='book.pubdate' placeholder="Enter Publish Date">
+			</div>
+			<div class="form-group">
+				<label for="txtCategory">Book Category</label>
+				<input type="text" class="form-control" id="txtCategory" ng-model='book.category' placeholder="Enter Book Category">
+			</div>
+
+			<div class="form-group">
+				<label for="txtNumiss"># of Books Issued</label>
+				<input type="number" class="form-control" id="txtNumiss" ng-model='book.numiss' placeholder="Enter # of Books Issued" min="0">
+			</div>
+<!-- -->
+
+
+		  <button type="submit" class="btn btn-default" data-ng-click="addBook(book);"  data-dismiss="modal">Submit</button>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+	</div>
+</div>
+<!--End add book modal-->
+
+<!--Edit book modal-->
+<div id="bookEditModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Book</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+
+					<div class="form-group">
+				    <label for="txtBookName">Book Name</label>
+				    <input type="text" class="form-control" ng-model='book.bookname' id="txtBookName" placeholder="Enter Book Name">
+				  </div>
+				  <div class="form-group">
+				    <label for="txtAuthName">Author Name</label>
+				    <input type="name" class="form-control" id="txtAuthName" ng-model='book.authName' placeholder="Enter Author Name">
+				  </div>
+					<div class="form-group">
+						<label for="txtISBNCode">ISBN Code</label>
+						<input type="text" class="form-control" id="txtISBNCode" ng-model='book.isbnCode' placeholder="Enter ISBN Code(length of 13)" size="13" minlength="13">
+					</div>
+					<div class="form-group">
+				    <label for="txtAmount"># of Books</label>
+				    <input type="number" class="form-control" id="txtAmount" ng-model='book.amount' placeholder="Update # of Books">
+				  </div>
+					<div class="form-group">
+						<label for="txtPubDate">Publish Date</label>
+						<input type="date" class="form-control" id="txtPubDate" ng-model='book.pubdate' placeholder="Update Publish Date">
+					</div>
+					<div class="form-group">
+						<label for="txtCategory">Book Category</label>
+						<input type="text" class="form-control" id="txtCategory" ng-model='book.category' placeholder="Update Book Category">
+					</div>
+
+					<div class="form-group">
+						<label for="txtNumiss"># of Books Issued</label>
+						<input type="number" class="form-control" id="txtNumiss" ng-model='book.numiss' placeholder="Update # of Books Issued" min="0">
+					</div>
+
+		  <button type="submit" class="btn btn-default"  data-ng-click="updateBook(book);" data-dismiss="modal">Submit</button>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+</div>
+</div>
+<!--End edit book modal-->
